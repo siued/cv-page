@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { WorkExperienceModule } from './work-experience/work-experience.module'
 import { MongooseModule } from '@nestjs/mongoose'
 import { CompanyModule } from './company/company.module'
+import { PublicModule } from './public/public.module'
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CompanyModule } from './company/company.module'
     }),
     WorkExperienceModule,
     CompanyModule,
+    PublicModule,
   ],
   controllers: [AppController],
   providers: [AppService],

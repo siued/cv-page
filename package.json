@@ -18,7 +18,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepare": "husky install",
+    "docs": "DOCS_OUTPUT=$(node -p \"require('./scripts/docs-config.cjs').docsOutput\") && redocly build-docs http://localhost:3000/api/docs-yaml -o \"$DOCS_OUTPUT\"",
+    "prepare": "husky",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^11.0.4",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/serve-static": "^5.0.4",
     "@nestjs/swagger": "^11.2.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
@@ -40,6 +42,7 @@
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
+    "@redocly/cli": "^2.12.6",
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",

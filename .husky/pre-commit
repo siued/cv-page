@@ -1,1 +1,7 @@
-yarn lint-staged && yarn test
+DOCS_OUTPUT=$(node -p "require('./scripts/docs-config.cjs').docsOutput")
+
+yarn docs
+git add "$DOCS_OUTPUT"
+
+yarn lint-staged
+yarn test
