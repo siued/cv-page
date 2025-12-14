@@ -22,6 +22,7 @@ import { WorkExperienceQueryDto } from './dto/work-experience-query.dto'
 import { ApiBadRequestResponse } from '../common/decorators/bad-request.decorator'
 import { ApiNotFoundResponse } from '../common/decorators/not-found.decorator'
 import { ObjectIdValidationPipe } from '../common/validators/object-id.validation-pipe'
+import { WorkExperiencePopulatedDto } from './dto/work-experience-populated.dto'
 
 export const WORK_EXPERIENCE_TAG_DESCRIPTION =
   'My work experiences. This endpoint collection allows CRUD operations on work experiences. '
@@ -33,6 +34,7 @@ export class WorkExperienceController {
 
   @Post()
   @BearerAuth()
+  @ApiOperation({ summary: 'Create a work experience' })
   @ApiBadRequestResponse()
   async create(
     @Body() createWorkExperienceDto: CreateWorkExperienceDto,
@@ -45,6 +47,7 @@ export class WorkExperienceController {
 
   @Get()
   @ApiTags('CV')
+  @ApiOperation({ summary: 'List work experiences for the CV' })
   @ApiBadRequestResponse()
   async findAll(
     @Query(new ValidationPipe({ transform: true }))
@@ -55,6 +58,7 @@ export class WorkExperienceController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get a work experience by id' })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async findOne(
@@ -64,8 +68,20 @@ export class WorkExperienceController {
     return WorkExperienceMapper.toDto(result)
   }
 
+  @Get(':id/populated')
+  @ApiOperation({ summary: 'Get work experience with populated company data' })
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  async findOnePopulated(
+    @Param('id', ObjectIdValidationPipe) id: string,
+  ): Promise<WorkExperiencePopulatedDto> {
+    const result = await this.workExperienceService.findOnePopulated(id)
+    return WorkExperienceMapper.toPopulatedDto(result)
+  }
+
   @Patch(':id')
   @BearerAuth()
+  @ApiOperation({ summary: 'Update a work experience by id' })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async update(
@@ -81,6 +97,7 @@ export class WorkExperienceController {
 
   @Delete(':id')
   @BearerAuth()
+  @ApiOperation({ summary: 'Delete a work experience by id' })
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async remove(

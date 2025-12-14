@@ -5,12 +5,14 @@ import { Model, ObjectId } from 'mongoose'
 import {
   WorkExperience,
   WorkExperienceDocument,
+  WorkExperiencePopulatedDocument,
 } from './schema/work-experience.schema'
 import { PaginatedQuery } from '../common/types/pagination.type'
 import { InjectModel } from '@nestjs/mongoose'
 import { Skill } from './schema/skill.schema'
 import { WorkExperienceSortField } from './work-experience.types'
 import { SortOrder } from '../common/enums/sort-order.enum'
+import { CompanyDocument } from '../company/company.schema'
 
 @Injectable()
 export class WorkExperienceService {
@@ -45,6 +47,17 @@ export class WorkExperienceService {
 
   async findOne(id: string | ObjectId): Promise<WorkExperienceDocument> {
     const workExperience = await this.workExperienceModel.findById(id)
+    if (!workExperience)
+      throw new NotFoundException('Work experience not found')
+    return workExperience
+  }
+
+  async findOnePopulated(
+    id: string | ObjectId,
+  ): Promise<WorkExperiencePopulatedDocument> {
+    const workExperience = await this.workExperienceModel
+      .findById(id)
+      .populate<{ company: CompanyDocument }>('company')
     if (!workExperience)
       throw new NotFoundException('Work experience not found')
     return workExperience

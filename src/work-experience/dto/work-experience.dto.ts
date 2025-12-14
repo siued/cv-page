@@ -11,10 +11,7 @@ import { PositionLevel } from '../work-experience.types'
 import { SkillDto } from './skill.dto'
 import { Type } from 'class-transformer'
 
-export class WorkExperienceDto {
-  @IsString()
-  company!: string
-
+export abstract class WorkExperienceBaseDto {
   @IsString()
   position!: string
 
@@ -45,4 +42,9 @@ export class WorkExperienceDto {
 
   @IsDate()
   updatedAt!: Date
+}
+
+export class WorkExperienceDto extends WorkExperienceBaseDto {
+  @IsString()
+  company!: string
 }

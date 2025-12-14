@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory, Virtual } from '@nestjs/mongoose'
 import mongoose, { HydratedDocument, ObjectId, Types } from 'mongoose'
+import { CompanyDocument } from '../../company/company.schema'
 import { PositionLevel } from '../work-experience.types'
 import { Skill, SkillSchema } from './skill.schema'
 
@@ -65,3 +66,10 @@ export type WorkExperienceDocument = HydratedDocument<
   WorkExperience,
   WorkExperienceDocumentOverride
 >
+
+export type WorkExperiencePopulatedDocument = Omit<
+  WorkExperienceDocument,
+  'company'
+> & {
+  company: CompanyDocument
+}
