@@ -49,10 +49,12 @@ async function bootstrap() {
     },
     customSiteTitle: 'Matej Kučera API Docs',
     customfavIcon: '/public/assets/favicon.ico',
+    yamlDocumentUrl: 'openapi.yaml',
+    jsonDocumentUrl: 'openapi.json',
   }
 
   const document = SwaggerModule.createDocument(app, config, documentOptions)
-  SwaggerModule.setup('api/docs', app, document, customOptions)
+  SwaggerModule.setup('', app, document, customOptions)
 
   await app.listen(configService.getOrThrow('PORT'))
 }
