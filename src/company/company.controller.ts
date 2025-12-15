@@ -12,7 +12,13 @@ import {
 import { CompanyService } from './company.service'
 import { CreateCompanyDto } from './dto/create-company.dto'
 import { UpdateCompanyDto } from './dto/update-company.dto'
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import {
+  ApiBody,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger'
 import { CompanyMapper } from './company.mapper'
 import { CompanyDto } from './dto/company.dto'
 import { BearerAuth } from '../common/decorators/bearer-auth-required.decorator'
@@ -20,6 +26,7 @@ import { ApiBadRequestResponse } from '../common/decorators/bad-request.decorato
 import { ApiNotFoundResponse } from '../common/decorators/not-found.decorator'
 import { CompanyQueryDto } from './dto/company-query.dto'
 import { ObjectIdValidationPipe } from '../common/validators/object-id.validation-pipe'
+import { CompanyPaginatedResponseDto } from './dto/company-paginated-response.dto'
 
 export const COMPANY_TAG_DESCRIPTION =
   'Companies I have worked for. This endpoint collection allows CRUD operations on companies.'
@@ -50,12 +57,17 @@ export class CompanyController {
 
   @Get()
   @ApiOperation({ summary: 'Get all companies' })
+  @ApiOkResponse({ type: CompanyPaginatedResponseDto })
   @ApiBadRequestResponse()
   async findAll(
     @Query(new ValidationPipe({ transform: true })) query: CompanyQueryDto,
-  ): Promise<CompanyDto[]> {
-    const companies = await this.companyService.findAll(query)
-    return CompanyMapper.toDtos(companies)
+  ): Promise<CompanyPaginatedResponseDto> {
+    const { items: docs, total } = await this.companyService.findAll(query)
+    const items = CompanyMapper.toDtos(docs)
+    return {
+      items,
+      total,
+    }
   }
 
   @Get(':id')

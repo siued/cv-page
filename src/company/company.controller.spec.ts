@@ -121,7 +121,7 @@ describe('CompanyController (validation & routing)', () => {
 
     it('transforms query params before calling the service', async () => {
       const company = createCompanyDocument()
-      service.findAll.mockResolvedValue([company])
+      service.findAll.mockResolvedValue({ items: [company], total: 1 })
 
       const response = await request(app.getHttpServer())
         .get(baseRoute)
@@ -133,7 +133,10 @@ describe('CompanyController (validation & routing)', () => {
         })
         .expect(200)
 
-      expect(response.body).toEqual([serializeCompany(company)])
+      expect(response.body).toEqual({
+        items: [serializeCompany(company)],
+        total: 1,
+      })
       expect(service.findAll).toHaveBeenCalledWith(
         expect.objectContaining({
           offset: 5,

@@ -1,6 +1,11 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import {
+  DocumentBuilder,
+  SwaggerCustomOptions,
+  SwaggerDocumentOptions,
+  SwaggerModule,
+} from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
 import { ValidationPipe } from '@nestjs/common'
 import { WORK_EXPERIENCE_TAG_DESCRIPTION } from './work-experience/work-experience.controller'
@@ -32,8 +37,22 @@ async function bootstrap() {
     .addTag('Companies', COMPANY_TAG_DESCRIPTION)
     .build()
 
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api/docs', app, document)
+  const documentOptions: SwaggerDocumentOptions = {
+    operationIdFactory: (controllerKey: string, methodKey: string) =>
+      // ex. WorkExperienceController_get => WorkExperience.get
+      `${controllerKey.replace('Controller', '')}.${methodKey}`,
+  }
+
+  const customOptions: SwaggerCustomOptions = {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+    customSiteTitle: 'Matej Kučera API Docs',
+    customfavIcon: '/public/assets/favicon.ico',
+  }
+
+  const document = SwaggerModule.createDocument(app, config, documentOptions)
+  SwaggerModule.setup('api/docs', app, document, customOptions)
 
   await app.listen(configService.getOrThrow('PORT'))
 }

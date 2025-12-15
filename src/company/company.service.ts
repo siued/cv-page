@@ -20,7 +20,7 @@ export class CompanyService {
 
   async findAll(
     options?: PaginatedQuery<CompanySortField>,
-  ): Promise<CompanyDocument[]> {
+  ): Promise<{ items: CompanyDocument[]; total: number }> {
     const {
       offset = 0,
       limit = 10,
@@ -28,11 +28,16 @@ export class CompanyService {
       sortOrder = SortOrder.Asc,
     } = options ?? {}
 
-    return this.companyModel
-      .find()
-      .sort({ [sortBy]: sortOrder === SortOrder.Asc ? 1 : -1 })
-      .skip(offset)
-      .limit(limit)
+    const sort: Record<string, 1 | -1> = {
+      [sortBy]: sortOrder === SortOrder.Asc ? 1 : -1,
+    }
+
+    const [items, total] = await Promise.all([
+      this.companyModel.find().sort(sort).skip(offset).limit(limit),
+      this.companyModel.countDocuments(),
+    ])
+
+    return { items, total }
   }
 
   async findOne(id: ObjectId | string): Promise<CompanyDocument> {

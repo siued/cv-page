@@ -12,7 +12,7 @@ import {
 import { WorkExperienceService } from './work-experience.service'
 import { CreateWorkExperienceDto } from './dto/create-work-experience.dto'
 import { UpdateWorkExperienceDto } from './dto/update-work-experience.dto'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
 import { BearerAuth } from '../common/decorators/bearer-auth-required.decorator'
 import { WorkExperienceMapper } from './work-experience.mapper'
 import { SkillMapper } from './skill.mapper'
@@ -23,6 +23,7 @@ import { ApiBadRequestResponse } from '../common/decorators/bad-request.decorato
 import { ApiNotFoundResponse } from '../common/decorators/not-found.decorator'
 import { ObjectIdValidationPipe } from '../common/validators/object-id.validation-pipe'
 import { WorkExperiencePopulatedDto } from './dto/work-experience-populated.dto'
+import { WorkExperiencePaginatedResponseDto } from './dto/work-experience-paginated-response.dto'
 
 export const WORK_EXPERIENCE_TAG_DESCRIPTION =
   'My work experiences. This endpoint collection allows CRUD operations on work experiences. '
@@ -48,13 +49,19 @@ export class WorkExperienceController {
   @Get()
   @ApiTags('CV')
   @ApiOperation({ summary: 'List work experiences for the CV' })
+  @ApiOkResponse({ type: WorkExperiencePaginatedResponseDto })
   @ApiBadRequestResponse()
   async findAll(
     @Query(new ValidationPipe({ transform: true }))
     query: WorkExperienceQueryDto,
-  ): Promise<WorkExperienceDto[]> {
-    const results = await this.workExperienceService.findAll(query)
-    return WorkExperienceMapper.toDtos(results)
+  ): Promise<WorkExperiencePaginatedResponseDto> {
+    const { items: docs, total } =
+      await this.workExperienceService.findAll(query)
+    const items = WorkExperienceMapper.toDtos(docs)
+    return {
+      items,
+      total,
+    }
   }
 
   @Get(':id')

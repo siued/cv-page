@@ -30,7 +30,7 @@ export class WorkExperienceService {
 
   async findAll(
     options?: PaginatedQuery<WorkExperienceSortField>,
-  ): Promise<WorkExperienceDocument[]> {
+  ): Promise<{ items: WorkExperienceDocument[]; total: number }> {
     const {
       offset = 0,
       limit = 10,
@@ -38,11 +38,16 @@ export class WorkExperienceService {
       sortOrder = SortOrder.Desc,
     } = options ?? {}
 
-    return this.workExperienceModel
-      .find()
-      .sort({ [sortBy]: sortOrder === SortOrder.Asc ? 1 : -1 })
-      .skip(offset)
-      .limit(limit)
+    const sort: Record<string, 1 | -1> = {
+      [sortBy]: sortOrder === SortOrder.Asc ? 1 : -1,
+    }
+
+    const [items, total] = await Promise.all([
+      this.workExperienceModel.find().sort(sort).skip(offset).limit(limit),
+      this.workExperienceModel.countDocuments(),
+    ])
+
+    return { items, total }
   }
 
   async findOne(id: string | ObjectId): Promise<WorkExperienceDocument> {
