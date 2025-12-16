@@ -10,7 +10,7 @@ on:
       - completed
 
 env:
-  REGISTRY_IMAGE: ghcr.io/${{ github.repository }}-main:latest
+  REGISTRY_IMAGE: ${{ vars.GAR_IMAGE_URL }}
 
 jobs:
   deploy:
@@ -33,13 +33,14 @@ jobs:
           CLOUD_RUN_SERVICE: ${{ vars.CLOUD_RUN_SERVICE }}
           CLOUD_RUN_REGION: ${{ vars.CLOUD_RUN_REGION }}
           CLOUD_RUN_PROJECT: ${{ vars.GCP_PROJECT_ID }}
+          REGISTRY_IMAGE: ${{ vars.GAR_IMAGE_URL }}
           DOMAIN: ${{ vars.DOMAIN }}
           API_KEY: ${{ secrets.API_KEY }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: |
           gcloud config set project "$CLOUD_RUN_PROJECT"
           gcloud run deploy "$CLOUD_RUN_SERVICE" \
-            --image "$REGISTRY_IMAGE" \
+            --image "${REGISTRY_IMAGE}" \
             --region "$CLOUD_RUN_REGION" \
             --memory 256Mi \
             --max-instances 1 \
