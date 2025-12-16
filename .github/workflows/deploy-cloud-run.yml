@@ -45,7 +45,7 @@ jobs:
             --memory 256Mi \
             --max-instances 1 \
             --port 80 \
-            --set-env-vars "DOMAIN=$DOMAIN,PROTOCOL=https,API_KEY=$API_KEY,MONGODB_URI=$MONGODB_URI" \
+            --set-env-vars "DOMAIN=$DOMAIN,PROTOCOL=https,API_KEY=$API_KEY,MONGODB_URI=$MONGODB_URI,ENVIRONMENT=prod" \
             --allow-unauthenticated \
             --ingress all \
             --platform managed
