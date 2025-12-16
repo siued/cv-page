@@ -44,6 +44,7 @@ jobs:
             --region "$CLOUD_RUN_REGION" \
             --memory 256Mi \
             --max-instances 1 \
+            --port 80 \
             --set-env-vars "DOMAIN=$DOMAIN,PROTOCOL=https,API_KEY=$API_KEY,MONGODB_URI=$MONGODB_URI" \
             --allow-unauthenticated \
             --ingress all \

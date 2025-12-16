@@ -21,8 +21,11 @@ async function bootstrap() {
   const port = configService.get('PORT')
   const domain = configService.getOrThrow('DOMAIN')
   const protocol = configService.getOrThrow('PROTOCOL')
+  const environment = configService.get('ENVIRONMENT')
   const config = configBuilder
-    .addServer(`${protocol}://${domain}${port ? `:${port}` : ''}`)
+    .addServer(
+      `${protocol}://${domain}${port && environment === 'local' ? `:${port}` : ''}`,
+    )
     .setTitle('Matej Kučera')
     .setDescription(
       'Subtitle - something like passionate backend (full stack) software engineer',
