@@ -42,10 +42,10 @@ export class WorkExperience {
 
   @Virtual({
     get(this: WorkExperience): number | undefined {
-      return this.endDate
-        ? (this.endDate?.getTime() - this.startDate.getTime()) /
-            (365 * 24 * 60 * 60 * 1000) // 1 year in millis
-        : undefined
+      if (!this.endDate) return undefined
+      const durationMillis = this.endDate.getTime() - this.startDate.getTime()
+      const yearInMillis = 365 * 24 * 60 * 60 * 1000
+      return Number((durationMillis / yearInMillis).toFixed(2))
     },
   })
   durationYears?: number

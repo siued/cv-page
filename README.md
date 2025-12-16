@@ -92,6 +92,7 @@ GAR is paid if combined size of all artifacts exceeds 500Mb. It is set to only k
 To push to Cloud Run using Github Actions, I needed a service account with sufficient permissions. These are:
 
 - Cloud Run Service Agent
+- Cloud Run Admin
 
 The service account authenticates in GitHub actios using a JSON credentials file.
 
