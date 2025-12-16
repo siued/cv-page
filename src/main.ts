@@ -7,11 +7,12 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
-import { ValidationPipe } from '@nestjs/common'
+import { Logger, ValidationPipe } from '@nestjs/common'
 import { WORK_EXPERIENCE_TAG_DESCRIPTION } from './work-experience/work-experience.controller'
 import { COMPANY_TAG_DESCRIPTION } from './company/company.controller'
 
 async function bootstrap() {
+  const logger = new Logger('main.ts')
   const app = await NestFactory.create(AppModule)
   const configService = app.get(ConfigService)
 
@@ -22,10 +23,10 @@ async function bootstrap() {
   const domain = configService.getOrThrow('DOMAIN')
   const protocol = configService.getOrThrow('PROTOCOL')
   const environment = configService.get('ENVIRONMENT')
+  const server = `${protocol}://${domain}${port && environment === 'local' ? `:${port}` : ''}`
+  logger.debug(`Setting up Swagger docs server URL to: ${server}`)
   const config = configBuilder
-    .addServer(
-      `${protocol}://${domain}${port && environment === 'local' ? `:${port}` : ''}`,
-    )
+    .addServer(server)
     .setTitle('Matej Kučera')
     .setDescription(
       'Subtitle - something like passionate backend (full stack) software engineer',
