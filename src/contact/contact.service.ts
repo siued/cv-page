@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose'
 import { Model, ObjectId } from 'mongoose'
 import { Contact, ContactDocument } from './schema/contact.schema'
 import { CreateContactDto } from './dto/create-contact.dto'
-import { UpdateContactDto } from './dto/update-contact.dto'
 import { ContactQueryDto } from './dto/contact-query.dto'
 
 @Injectable()
@@ -42,7 +41,7 @@ export class ContactService {
 
   async update(
     id: ObjectId | string,
-    updateContactDto: UpdateContactDto,
+    updateContactDto: CreateContactDto,
   ): Promise<ContactDocument> {
     const contact = await this.contactModel.findByIdAndUpdate(
       id,

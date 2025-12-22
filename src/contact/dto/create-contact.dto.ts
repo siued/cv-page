@@ -1,49 +1,21 @@
-import { ApiProperty, getSchemaPath } from '@nestjs/swagger'
-import { IsEnum, IsString } from 'class-validator'
+import { getSchemaPath } from '@nestjs/swagger'
 import { ContactType } from '../contact.types'
-
-export class CreateEmailContactDto {
-  @ApiProperty({ enum: [ContactType.EMAIL], default: ContactType.EMAIL })
-  @IsEnum(ContactType)
-  type: ContactType.EMAIL
-
-  @ApiProperty()
-  @IsString()
-  email: string
-}
-
-export class CreatePhoneContactDto {
-  @ApiProperty({ enum: [ContactType.PHONE], default: ContactType.PHONE })
-  @IsEnum(ContactType)
-  type: ContactType.PHONE
-
-  @ApiProperty()
-  @IsString()
-  phone: string
-}
-
-export class CreateSocialMediaContactDto {
-  @ApiProperty({
-    enum: [ContactType.SOCIAL_MEDIA],
-    default: ContactType.SOCIAL_MEDIA,
-  })
-  @IsEnum(ContactType)
-  type: ContactType.SOCIAL_MEDIA
-
-  @ApiProperty()
-  @IsString()
-  url: string
-}
-
-export class CreateWebsiteContactDto {
-  @ApiProperty({ enum: [ContactType.WEBSITE], default: ContactType.WEBSITE })
-  @IsEnum(ContactType)
-  type: ContactType.WEBSITE
-
-  @ApiProperty()
-  @IsString()
-  address: string
-}
+import {
+  CreateEmailContactDto,
+  CreateEmailContactExample,
+} from './create-email-contact.dto'
+import {
+  CreatePhoneContactDto,
+  CreatePhoneContactExample,
+} from './create-phone-contact.dto'
+import {
+  CreateSocialMediaContactDto,
+  CreateSocialMediaContactExample,
+} from './create-social-media-contact.dto'
+import {
+  CreateWebsiteContactDto,
+  CreateWebsiteContactExample,
+} from './create-website-contact.dto'
 
 export type CreateContactDto =
   | CreateEmailContactDto
@@ -71,30 +43,18 @@ export const CreateContactDtoDiscriminator = {
 export const CreateContactExamples = {
   email: {
     summary: 'Email',
-    value: {
-      type: ContactType.EMAIL,
-      email: 'example@nasa.gov',
-    },
+    value: CreateEmailContactExample,
   },
   phone: {
     summary: 'Phone',
-    value: {
-      type: ContactType.PHONE,
-      phone: '+1234567890',
-    },
+    value: CreatePhoneContactExample,
   },
   socialMedia: {
     summary: 'Social Media',
-    value: {
-      type: ContactType.SOCIAL_MEDIA,
-      url: 'https://linkedin.com/in/example',
-    },
+    value: CreateSocialMediaContactExample,
   },
   website: {
     summary: 'Website',
-    value: {
-      type: ContactType.WEBSITE,
-      url: 'https://nasa.gov',
-    },
+    value: CreateWebsiteContactExample,
   },
 }

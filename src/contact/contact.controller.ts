@@ -15,14 +15,7 @@ import {
   ApiResponse,
   ApiExtraModels,
 } from '@nestjs/swagger'
-import {
-  CreateContactDto,
-  CreateEmailContactDto,
-  CreatePhoneContactDto,
-  CreateSocialMediaContactDto,
-  CreateWebsiteContactDto,
-} from './dto/create-contact.dto'
-import { UpdateContactDto } from './dto/update-contact.dto'
+import { CreateContactDto } from './dto/create-contact.dto'
 import { ContactService } from './contact.service'
 import { ContactDto } from './dto/contact.dto'
 import { ApiContactResponse } from './decorators/api-contact-response.decorator'
@@ -38,6 +31,11 @@ import { BearerAuth } from '../common/decorators/bearer-auth-required.decorator'
 import { ApiNotFoundResponse } from '../common/decorators/not-found.decorator'
 import { ObjectIdValidationPipe } from '../common/validators/object-id.validation-pipe'
 import { ApiContactBody } from './decorators/api-contact-body.decorator'
+import { ContactUnionValidationPipe } from './pipes/contact-union-validation.pipe'
+import { CreateEmailContactDto } from './dto/create-email-contact.dto'
+import { CreatePhoneContactDto } from './dto/create-phone-contact.dto'
+import { CreateSocialMediaContactDto } from './dto/create-social-media-contact.dto'
+import { CreateWebsiteContactDto } from './dto/create-website-contact.dto'
 
 export const CONTACT_TAG_DESCRIPTION =
   'My contact details. This endpoint collection allows CRUD operations on various types of contacts (email, phone, social media, website).'
@@ -62,7 +60,9 @@ export class ContactController {
   @ApiContactBody('Contact create body')
   @ApiContactResponse('Contact created', 201)
   @ApiBadRequestResponse()
-  async create(@Body() dto: CreateContactDto): Promise<ContactDto> {
+  async create(
+    @Body(new ContactUnionValidationPipe()) dto: CreateContactDto,
+  ): Promise<ContactDto> {
     const doc = await this.contactService.create(dto)
     return ContactMapper.toDto(doc)
   }
@@ -88,7 +88,7 @@ export class ContactController {
   @ApiNotFoundResponse()
   async update(
     @Param('id', ObjectIdValidationPipe) id: string,
-    @Body() dto: UpdateContactDto,
+    @Body(new ContactUnionValidationPipe()) dto: CreateContactDto,
   ): Promise<ContactDto> {
     const doc = await this.contactService.update(id, dto)
     return ContactMapper.toDto(doc)
