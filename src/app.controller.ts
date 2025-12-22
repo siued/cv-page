@@ -1,8 +1,12 @@
 import { Controller, Get } from '@nestjs/common'
 import { AppService } from './app.service'
-import { ApiOperation, ApiResponse } from '@nestjs/swagger'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+
+export const APP_TAG_DESCRIPTION =
+  'Application-level endpoints, including health checks and general information about the API.'
 
 @Controller()
+@ApiTags('App')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 

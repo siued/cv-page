@@ -48,7 +48,7 @@ export class WorkExperienceController {
 
   @Get()
   @ApiTags('CV')
-  @ApiOperation({ summary: 'List work experiences for the CV' })
+  @ApiOperation({ summary: 'List all of my work experiences' })
   @ApiOkResponse({ type: WorkExperiencePaginatedResponseDto })
   @ApiBadRequestResponse()
   async findAll(

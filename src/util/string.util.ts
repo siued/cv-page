@@ -13,3 +13,8 @@ export function isValidUrl(url: string): boolean {
 export function isIso3166Alpha2CountryCode(code: string): boolean {
   return code in countries.getNames('en', { select: 'official' })
 }
+
+export function isValidEmail(email: string): boolean {
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+  return emailRegex.test(email)
+}

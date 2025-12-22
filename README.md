@@ -100,6 +100,12 @@ The service account authenticates in GitHub actios using a JSON credentials file
 
 The main branch is deployed as soon as the CI and build pipelines finish.
 
+[Pricing](https://cloud.google.com/run/pricing?hl=en)
+
+- CPU - First 180,000 vCPU-seconds free per month
+- RAM - First 360,000 GiB-seconds free per month
+- Requests - 2 million requests free per month
+
 ### Domain mapping
 
 To map a Cloudflare domain to Cloud Run:

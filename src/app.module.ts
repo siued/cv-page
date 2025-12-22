@@ -6,6 +6,7 @@ import { WorkExperienceModule } from './work-experience/work-experience.module'
 import { MongooseModule } from '@nestjs/mongoose'
 import { CompanyModule } from './company/company.module'
 import { PublicModule } from './public/public.module'
+import { ContactModule } from './contact/contact.module'
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PublicModule } from './public/public.module'
     WorkExperienceModule,
     CompanyModule,
     PublicModule,
+    ContactModule,
   ],
   controllers: [AppController],
   providers: [AppService],
