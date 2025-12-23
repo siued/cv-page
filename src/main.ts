@@ -8,6 +8,7 @@ import {
 } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
 import { Logger, ValidationPipe } from '@nestjs/common'
+import { apiReference } from '@scalar/nestjs-api-reference'
 import { WORK_EXPERIENCE_TAG_DESCRIPTION } from './work-experience/work-experience.controller'
 import { COMPANY_TAG_DESCRIPTION } from './company/company.controller'
 import { CONTACT_TAG_DESCRIPTION } from './contact/contact.controller'
@@ -69,7 +70,24 @@ async function bootstrap() {
   }
 
   const document = SwaggerModule.createDocument(app, config, documentOptions)
-  SwaggerModule.setup('', app, document, customOptions)
+  SwaggerModule.setup('/docs/swagger', app, document, customOptions)
+
+  app.use(
+    '/docs/scalar',
+    apiReference({ url: '/openapi.json', hideClientButton: true }),
+  )
+
+  // Redirect root to default API docs (Scalar)
+  // cannot host Scalar at root because it hijacks all other URLs
+  app.getHttpAdapter().get('/', (req, res) => {
+    res.redirect('/docs/scalar')
+  })
+
+  for (const provider of ['stoplight', 'redocly', 'rapidoc']) {
+    app.getHttpAdapter().get(`/docs/${provider}/`, (req, res) => {
+      res.redirect(`/public/docs/${provider}.html`)
+    })
+  }
 
   await app.listen(configService.getOrThrow('PORT'))
 }
