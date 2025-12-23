@@ -58,7 +58,7 @@ export class ContactController {
   @BearerAuth()
   @ApiOperation({ summary: 'Create a new contact' })
   @ApiContactBody('Contact create body')
-  @ApiContactResponse('Contact created', 201)
+  @ApiContactResponse(201)
   @ApiBadRequestResponse()
   async create(
     @Body(new ContactUnionValidationPipe()) dto: CreateContactDto,
@@ -69,7 +69,7 @@ export class ContactController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a contact by ID' })
-  @ApiContactResponse('Contact retrieved')
+  @ApiContactResponse()
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async findOne(
@@ -83,7 +83,7 @@ export class ContactController {
   @BearerAuth()
   @ApiOperation({ summary: 'Update a contact by ID' })
   @ApiContactBody('Contact update body')
-  @ApiContactResponse('Contact updated')
+  @ApiContactResponse()
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async update(
@@ -97,7 +97,7 @@ export class ContactController {
   @Delete(':id')
   @BearerAuth()
   @ApiOperation({ summary: 'Delete a contact by ID' })
-  @ApiContactResponse('Contact deleted')
+  @ApiContactResponse()
   @ApiBadRequestResponse()
   @ApiNotFoundResponse()
   async remove(

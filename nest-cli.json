@@ -12,6 +12,9 @@
           "controllerFileNameSuffix": [".controller.ts"]
         }
       }
+    ],
+    "assets": [
+      { "include": "init/**/*.md", "watchAssets": true }
     ]
   }
 }
