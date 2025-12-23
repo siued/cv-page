@@ -66,6 +66,26 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config, documentOptions)
 
+  /**
+   * This is necessary because NestJS Swagger module doesn't provide
+   * native support for OpenAPI callbacks. We use @ApiExtensions to add
+   * 'x-callbacks' to operations, but we need to rename it to 'callbacks'
+   * in the final OpenAPI document in order for it to be recognized by tools
+   * like Swagger UI and Scalar.
+   */
+  if (document.paths) {
+    Object.values(document.paths).forEach((pathItem: any) => {
+      // Check all HTTP methods (get, post, put, etc.)
+      Object.values(pathItem).forEach((operation: any) => {
+        if (operation && operation['x-callbacks']) {
+          // Rename x-callbacks to callbacks
+          operation.callbacks = operation['x-callbacks']
+          delete operation['x-callbacks']
+        }
+      })
+    })
+  }
+
   // set up Swagger
   SwaggerModule.setup('/docs/swagger', app, document, customOptions)
 
@@ -103,6 +123,14 @@ async function bootstrap() {
   app.getHttpAdapter().get('/', (req, res) => {
     res.redirect('/docs/scalar')
   })
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  )
 
   await app.listen(port)
 }

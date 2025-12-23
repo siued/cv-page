@@ -7,7 +7,6 @@ import {
   Body,
   Query,
   Patch,
-  ValidationPipe,
 } from '@nestjs/common'
 import {
   ApiTags,
@@ -116,7 +115,7 @@ export class ContactController {
   })
   @ApiBadRequestResponse()
   async findAll(
-    @Query(new ValidationPipe({ transform: true })) query: ContactQueryDto,
+    @Query() query: ContactQueryDto,
   ): Promise<ContactPaginatedResponseDto> {
     const { items, total } = await this.contactService.findAll(query)
     return { items: ContactMapper.toDtos(items), total }

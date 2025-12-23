@@ -33,7 +33,8 @@ export class CreateWorkExperienceDto {
   position!: string
 
   @IsEnum(PositionLevel)
-  level!: PositionLevel
+  @IsOptional()
+  level?: PositionLevel
 
   @IsArray()
   @Type(() => SkillDto)

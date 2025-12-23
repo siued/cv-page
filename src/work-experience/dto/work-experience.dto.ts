@@ -16,7 +16,8 @@ export abstract class WorkExperienceBaseDto {
   position!: string
 
   @IsEnum(PositionLevel)
-  level!: PositionLevel
+  @IsOptional()
+  level?: PositionLevel
 
   @IsArray()
   @Type(() => SkillDto)

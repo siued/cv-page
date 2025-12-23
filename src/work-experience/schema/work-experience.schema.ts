@@ -23,9 +23,12 @@ export class WorkExperience {
     type: String,
     enum: Object.values(PositionLevel),
   })
-  level!: PositionLevel
+  level?: PositionLevel
 
-  @Prop([SkillSchema])
+  @Prop({
+    required: true,
+    type: [SkillSchema],
+  })
   skills!: Skill[]
 
   @Prop({
