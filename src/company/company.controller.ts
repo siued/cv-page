@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   Query,
-  ValidationPipe,
 } from '@nestjs/common'
 import { CompanyService } from './company.service'
 import { CreateCompanyDto } from './dto/create-company.dto'
@@ -61,7 +60,7 @@ export class CompanyController {
   @ApiOkResponse({ type: CompanyPaginatedResponseDto })
   @ApiBadRequestResponse()
   async findAll(
-    @Query(new ValidationPipe({ transform: true })) query: CompanyQueryDto,
+    @Query() query: CompanyQueryDto,
   ): Promise<CompanyPaginatedResponseDto> {
     const { items: docs, total } = await this.companyService.findAll(query)
     const items = CompanyMapper.toDtos(docs)

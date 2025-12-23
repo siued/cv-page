@@ -10,3 +10,6 @@ TODO list:
 - [ ] endpoint to fetch my CV pdf
 - [ ] finish writing app description
 - [ ] write good description in readme and move stuff around
+- [ ] education module
+- [ ] publications module
+- [ ] skills module?

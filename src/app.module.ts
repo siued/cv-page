@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import { CompanyModule } from './company/company.module'
 import { PublicModule } from './public/public.module'
 import { ContactModule } from './contact/contact.module'
+import { PingModule } from './ping/ping.module'
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ContactModule } from './contact/contact.module'
     CompanyModule,
     PublicModule,
     ContactModule,
+    PingModule,
   ],
   controllers: [AppController],
   providers: [AppService],

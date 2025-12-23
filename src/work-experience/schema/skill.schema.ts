@@ -5,7 +5,6 @@ export class Skill {
   @Prop({
     type: String,
     required: true,
-    unique: true,
   })
   shortName!: string
 

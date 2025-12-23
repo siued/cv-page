@@ -7,7 +7,6 @@ import {
   Param,
   Delete,
   Query,
-  ValidationPipe,
 } from '@nestjs/common'
 import { WorkExperienceService } from './work-experience.service'
 import { CreateWorkExperienceDto } from './dto/create-work-experience.dto'
@@ -52,7 +51,7 @@ export class WorkExperienceController {
   @ApiOkResponse({ type: WorkExperiencePaginatedResponseDto })
   @ApiBadRequestResponse()
   async findAll(
-    @Query(new ValidationPipe({ transform: true }))
+    @Query()
     query: WorkExperienceQueryDto,
   ): Promise<WorkExperiencePaginatedResponseDto> {
     const { items: docs, total } =
