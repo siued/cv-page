@@ -7,7 +7,7 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
-import { Logger, ValidationPipe } from '@nestjs/common'
+import { ValidationPipe } from '@nestjs/common'
 import { apiReference } from '@scalar/nestjs-api-reference'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -17,14 +17,13 @@ import { CONTACT_TAG_DESCRIPTION } from './contact/contact.controller'
 import { APP_TAG_DESCRIPTION } from './app.controller'
 
 async function bootstrap() {
-  const logger = new Logger('main.ts')
   const app = await NestFactory.create(AppModule)
   const configService = app.get(ConfigService)
 
   app.useGlobalPipes(new ValidationPipe())
 
   const configBuilder = new DocumentBuilder()
-  const port = configService.get('PORT')
+  const port = configService.getOrThrow('PORT')
   const domain = configService.getOrThrow('DOMAIN')
   const protocol = configService.getOrThrow('PROTOCOL')
   const environment = configService.get('ENVIRONMENT')
@@ -60,7 +59,7 @@ async function bootstrap() {
       url: server,
     },
     customSiteTitle: 'Matej Kučera API Docs',
-    customfavIcon: '/public/assets/favicon.ico',
+    customfavIcon: '/assets/favicon.ico',
     yamlDocumentUrl: 'openapi.yaml',
     jsonDocumentUrl: 'openapi.json',
   }
@@ -73,7 +72,30 @@ async function bootstrap() {
   // set up Scalar
   app.use(
     '/docs/scalar',
-    apiReference({ url: '/openapi.json', hideClientButton: true }),
+    apiReference({
+      url: '/openapi.json',
+      // override default config where needed
+      hideClientButton: true,
+      authentication: {
+        preferredSecurityScheme: 'bearer',
+        securitySchemes: {
+          bearer: {
+            token: 'placeholder',
+          },
+        },
+      },
+      documentDownloadType: 'json',
+      darkMode: true,
+      favicon: '/assets/favicon.ico',
+      metaData: {
+        title: 'Matej Kučera API Docs',
+      },
+      operationTitleSource: 'path',
+      orderSchemaPropertiesBy: 'preserve',
+      persistAuth: true,
+      theme: 'kepler',
+      operationsSorter: 'method',
+    }),
   )
 
   // Redirect root to default API docs (Scalar)
@@ -82,13 +104,7 @@ async function bootstrap() {
     res.redirect('/docs/scalar')
   })
 
-  // set up redirects for static HTML-based API docs
-  for (const provider of ['stoplight', 'redocly', 'rapidoc']) {
-    app.getHttpAdapter().get(`/docs/${provider}/`, (req, res) => {
-      res.redirect(`/public/docs/${provider}.html`)
-    })
-  }
-
-  await app.listen(configService.getOrThrow('PORT'))
+  await app.listen(port)
 }
+
 bootstrap()

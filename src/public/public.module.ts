@@ -4,9 +4,23 @@ import { join } from 'path'
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'public'),
-      serveRoot: '/public',
+    ServeStaticModule.forRootAsync({
+      useFactory: () => [
+        {
+          // docs from etc `public/docs/redocly.html` are served at `/docs/redocly`
+          rootPath: join(process.cwd(), 'public', 'docs'),
+          serveRoot: '/docs',
+          serveStaticOptions: {
+            extensions: ['html'],
+            index: false,
+          },
+        },
+        {
+          // assets from `public/assets` are served at `/assets`
+          rootPath: join(process.cwd(), 'public', 'assets'),
+          serveRoot: '/assets',
+        },
+      ],
     }),
   ],
 })
