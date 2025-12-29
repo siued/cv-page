@@ -18,6 +18,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger'
+import { ApiTag } from '../app.types'
 import { CompanyMapper } from './company.mapper'
 import { CompanyDto } from './dto/company.dto'
 import { BearerAuth } from '../common/decorators/bearer-auth-required.decorator'
@@ -31,7 +32,7 @@ export const COMPANY_TAG_DESCRIPTION =
   'Companies I have worked for. This endpoint collection allows CRUD operations on companies.'
 
 @Controller('companies')
-@ApiTags('Companies')
+@ApiTags(ApiTag.Company)
 export class CompanyController {
   constructor(private readonly companyService: CompanyService) {}
 
@@ -55,7 +56,7 @@ export class CompanyController {
   }
 
   @Get()
-  @ApiTags('CV')
+  @ApiTags(ApiTag.CV)
   @ApiOperation({ summary: 'List all companies I have worked at' })
   @ApiOkResponse({ type: CompanyPaginatedResponseDto })
   @ApiBadRequestResponse()

@@ -8,6 +8,8 @@ import { CompanyModule } from './company/company.module'
 import { PublicModule } from './public/public.module'
 import { ContactModule } from './contact/contact.module'
 import { PingModule } from './ping/ping.module'
+import { EducationModule } from './education/education.module'
+import { CvModule } from './cv/cv.module'
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { PingModule } from './ping/ping.module'
     PublicModule,
     ContactModule,
     PingModule,
+    EducationModule,
+    CvModule,
   ],
   controllers: [AppController],
   providers: [AppService],
