@@ -7,12 +7,13 @@ import {
   ApiTags,
   getSchemaPath,
 } from '@nestjs/swagger'
+import { ApiTag } from '../app.types'
 import { PongDto } from './dto/ping-response.dto'
 import { sleep } from '../util/async.util'
 import { PingRequestDto } from './dto/ping-request.dto'
 
 @Controller('ping')
-@ApiTags('App')
+@ApiTags(ApiTag.App)
 @ApiExtraModels(PongDto)
 export class PingController {
   @Post()

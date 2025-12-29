@@ -1,6 +1,9 @@
 # CV page
 
-here i write description
+This is my personal website.  
+Instead of having an AI-generated frontend, I decided to create a clean API with my personal details and let the documentation serve as the frontend.
+
+Currently this is still WIP. I am in the process of adding more data and endpoints.
 
 ## Installation
 
@@ -24,6 +27,9 @@ $ yarn run start:prod
 ## Test
 
 ```bash
+# all tests
+$ yarn test
+
 # unit tests
 $ yarn run test
 

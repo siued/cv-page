@@ -12,6 +12,7 @@ import { WorkExperienceService } from './work-experience.service'
 import { CreateWorkExperienceDto } from './dto/create-work-experience.dto'
 import { UpdateWorkExperienceDto } from './dto/update-work-experience.dto'
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger'
+import { ApiTag } from '../app.types'
 import { BearerAuth } from '../common/decorators/bearer-auth-required.decorator'
 import { WorkExperienceMapper } from './work-experience.mapper'
 import { SkillMapper } from './skill.mapper'
@@ -28,7 +29,7 @@ export const WORK_EXPERIENCE_TAG_DESCRIPTION =
   'My work experiences. This endpoint collection allows CRUD operations on work experiences. '
 
 @Controller('work-experiences')
-@ApiTags('Work Experiences')
+@ApiTags(ApiTag.WE)
 export class WorkExperienceController {
   constructor(private readonly workExperienceService: WorkExperienceService) {}
 
@@ -46,7 +47,7 @@ export class WorkExperienceController {
   }
 
   @Get()
-  @ApiTags('CV')
+  @ApiTags(ApiTag.CV)
   @ApiOperation({ summary: 'List all of my work experiences' })
   @ApiOkResponse({ type: WorkExperiencePaginatedResponseDto })
   @ApiBadRequestResponse()

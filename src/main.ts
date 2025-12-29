@@ -15,6 +15,7 @@ import { WORK_EXPERIENCE_TAG_DESCRIPTION } from './work-experience/work-experien
 import { COMPANY_TAG_DESCRIPTION } from './company/company.controller'
 import { CONTACT_TAG_DESCRIPTION } from './contact/contact.controller'
 import { APP_TAG_DESCRIPTION } from './app.controller'
+import { ApiTag } from './app.types'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -38,13 +39,13 @@ async function bootstrap() {
     .setVersion('1.0')
     .addBearerAuth()
     .addTag(
-      'CV',
+      ApiTag.CV,
       'My CV data including work experiences, education, skills, and projects.',
     )
-    .addTag('Work Experiences', WORK_EXPERIENCE_TAG_DESCRIPTION)
-    .addTag('Companies', COMPANY_TAG_DESCRIPTION)
-    .addTag('Contacts', CONTACT_TAG_DESCRIPTION)
-    .addTag('App', APP_TAG_DESCRIPTION)
+    .addTag(ApiTag.WE, WORK_EXPERIENCE_TAG_DESCRIPTION)
+    .addTag(ApiTag.Company, COMPANY_TAG_DESCRIPTION)
+    .addTag(ApiTag.Contacts, CONTACT_TAG_DESCRIPTION)
+    .addTag(ApiTag.App, APP_TAG_DESCRIPTION)
     .build()
 
   const documentOptions: SwaggerDocumentOptions = {
