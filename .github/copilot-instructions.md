@@ -10,6 +10,7 @@
 
 - Eliminate duplication: share logic via mappers/utilities or base DTOs (e.g., `WorkExperienceBaseDto`). Prefer extracting helpers to `common/` when used by multiple modules.
 - NEVER introduce `any`, `unknown`, or unchecked casts. Lean on narrow interfaces, enums, and DTO classes for data flow.
+- NEVER use `@ts-ignore`, `@ts-expect-error` or other error silencing techniques.
 - Keep files ASCII-only and add comments only where logic is non-obvious.
 - Follow Nest conventions: defensive service methods, DTO validation decorators, and mapper utilities converting Mongoose docs to DTOs.
 - Preserve existing eslint/prettier style (single quotes, trailing commas where configured).

@@ -9,6 +9,7 @@ import { PublicModule } from './public/public.module'
 import { ContactModule } from './contact/contact.module'
 import { PingModule } from './ping/ping.module'
 import { EducationModule } from './education/education.module'
+import { CvModule } from './cv/cv.module'
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { EducationModule } from './education/education.module'
     ContactModule,
     PingModule,
     EducationModule,
+    CvModule,
   ],
   controllers: [AppController],
   providers: [AppService],
