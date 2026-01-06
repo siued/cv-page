@@ -1,46 +1,62 @@
-import { ApiProperty } from '@nestjs/swagger'
 import { EducationLevel } from '../entities/education.entity'
+import {
+  IsArray,
+  IsDate,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator'
 
 export class EducationDto {
-  @ApiProperty({ type: String })
+  @IsString()
   _id!: string
 
-  @ApiProperty({ type: String })
-  company!: string
+  @IsString()
+  school!: string
 
-  @ApiProperty({ enum: EducationLevel })
+  @IsEnum(EducationLevel)
   level!: EducationLevel
 
-  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
   fieldOfStudy?: string
 
-  @ApiProperty({ required: false })
+  @IsNumber()
+  @IsOptional()
   eqfEquivalent?: number
 
-  @ApiProperty()
+  @IsDate()
   startDate!: Date
 
-  @ApiProperty({ required: false })
+  @IsDate()
+  @IsOptional()
   endDate?: Date
 
-  @ApiProperty({ required: false })
+  @IsNumber()
+  @IsOptional()
   durationYears?: number
 
-  @ApiProperty({ required: false })
+  @IsNumber()
+  @IsOptional()
   gpa?: number
 
-  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
   thesisTitle?: string
 
-  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
   description?: string
 
-  @ApiProperty({ type: [String], required: false })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
   extracurriculars?: string[]
 
-  @ApiProperty()
+  @IsDate()
   createdAt!: Date
 
-  @ApiProperty()
+  @IsDate()
   updatedAt!: Date
 }

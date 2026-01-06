@@ -5,7 +5,7 @@ export class EducationMapper {
   static toDto(doc: Education): EducationDto {
     return {
       _id: doc._id.toString(),
-      company: doc.company.toString(),
+      school: doc.school.toString(),
       level: doc.level,
       fieldOfStudy: doc.fieldOfStudy,
       eqfEquivalent: doc.eqfEquivalent,
