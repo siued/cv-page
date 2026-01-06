@@ -16,6 +16,7 @@ import { COMPANY_TAG_DESCRIPTION } from './company/company.controller'
 import { CONTACT_TAG_DESCRIPTION } from './contact/contact.controller'
 import { APP_TAG_DESCRIPTION } from './app.controller'
 import { ApiTag } from './app.types'
+import addWebhooks from './init/webhooks'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -46,6 +47,7 @@ async function bootstrap() {
     .addTag(ApiTag.Company, COMPANY_TAG_DESCRIPTION)
     .addTag(ApiTag.Contacts, CONTACT_TAG_DESCRIPTION)
     .addTag(ApiTag.App, APP_TAG_DESCRIPTION)
+    .setOpenAPIVersion('3.1.0')
     .build()
 
   const documentOptions: SwaggerDocumentOptions = {
@@ -86,6 +88,8 @@ async function bootstrap() {
       })
     })
   }
+
+  addWebhooks(document)
 
   // set up Swagger
   SwaggerModule.setup('/docs/swagger', app, document, customOptions)
