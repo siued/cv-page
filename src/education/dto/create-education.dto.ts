@@ -7,8 +7,8 @@ import {
   ValidateBy,
   ValidationArguments,
 } from 'class-validator'
-import { Transform, Type } from 'class-transformer'
-import mongoose, { isValidObjectId, ObjectId } from 'mongoose'
+import { Transform } from 'class-transformer'
+import mongoose, { isValidObjectId } from 'mongoose'
 import { ApiProperty } from '@nestjs/swagger'
 import { EducationLevel } from '../entities/education.entity'
 
@@ -25,7 +25,7 @@ export class CreateEducationDto {
   @Transform(
     (params: { value: string }) => new mongoose.Types.ObjectId(params.value),
   )
-  company!: ObjectId
+  school!: mongoose.Types.ObjectId
 
   @IsEnum(EducationLevel)
   level!: EducationLevel
@@ -47,10 +47,6 @@ export class CreateEducationDto {
 
   @IsNumber()
   @IsOptional()
-  durationYears?: number
-
-  @IsNumber()
-  @IsOptional()
   gpa?: number
 
   @IsString()
@@ -62,6 +58,6 @@ export class CreateEducationDto {
   description?: string
 
   @IsOptional()
-  @Type(() => String)
+  @IsString({ each: true })
   extracurriculars?: string[]
 }

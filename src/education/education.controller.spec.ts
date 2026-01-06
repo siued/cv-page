@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { EducationController } from './education.controller'
 import { EducationService } from './education.service'
 import mongoose from 'mongoose'
-import { EducationDto } from './dto/education.dto'
 import { EducationLevel } from './entities/education.entity'
 import { UpdateEducationDto } from './dto/update-education.dto'
 import {
@@ -17,7 +16,7 @@ describe('EducationController', () => {
 
   const mockEducation = {
     _id: new mongoose.Types.ObjectId('507f1f77bcf86cd799439012'),
-    company: new mongoose.Types.ObjectId('507f1f77bcf86cd799439012'),
+    school: new mongoose.Types.ObjectId('507f1f77bcf86cd799439012'),
     level: EducationLevel.Bachelor,
     fieldOfStudy: 'Computer Science',
     eqfEquivalent: 6,
@@ -32,15 +31,9 @@ describe('EducationController', () => {
     updatedAt: new Date('2023-01-01'),
   }
 
-  const mockEducationDto: EducationDto = {
-    ...mockEducation,
-    _id: mockEducation._id.toString(),
-    company: mockEducation.company.toString(),
-  }
-
   const mockCreateEducationDto = {
     ...mockEducation,
-    company: mockEducation.company,
+    school: mockEducation.school,
   }
 
   beforeEach(async () => {

@@ -11,7 +11,7 @@ export class Education {
     type: mongoose.Schema.Types.ObjectId,
   })
   /** using a ref to Company, because all education institutions are companies anyway */
-  company: ObjectId
+  school: mongoose.Types.ObjectId
 
   @Prop({
     required: true,

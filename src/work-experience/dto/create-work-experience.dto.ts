@@ -41,11 +41,9 @@ export class CreateWorkExperienceDto {
   @ValidateNested({ each: true })
   skills!: SkillDto[]
 
-  @Transform(({ value }) => (value ? new Date(value) : value))
   @IsDate()
   startDate!: Date
 
-  @Transform(({ value }) => (value ? new Date(value) : value))
   @IsDate()
   @IsOptional()
   endDate?: Date

@@ -22,8 +22,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   const configService = app.get(ConfigService)
 
-  app.useGlobalPipes(new ValidationPipe())
-
   const configBuilder = new DocumentBuilder()
   const port = configService.getOrThrow('PORT')
   const domain = configService.getOrThrow('DOMAIN')
@@ -134,6 +132,9 @@ async function bootstrap() {
       transform: true,
       whitelist: true,
       forbidNonWhitelisted: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
     }),
   )
 
