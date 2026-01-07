@@ -1,8 +1,8 @@
-import { CompanyDocument } from './company.schema'
+import { Company, CompanyDocument } from './company.schema'
 import { CompanyDto } from './dto/company.dto'
 
 export class CompanyMapper {
-  static toDto(company: CompanyDocument): CompanyDto {
+  static toDto(company: CompanyDocument | Company): CompanyDto {
     return {
       _id: company._id.toString(),
       name: company.name,

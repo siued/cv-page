@@ -1,15 +1,22 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, Logger, NotFoundException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model, ObjectId } from 'mongoose'
 import { CreateEducationDto } from './dto/create-education.dto'
 import { UpdateEducationDto } from './dto/update-education.dto'
-import { Education, EducationDocument } from './education.schema'
+import {
+  Education,
+  EducationDocument,
+  EducationPopulatedDocument,
+} from './education.schema'
 import { PaginatedQuery } from '../common/types/pagination.type'
 import { EducationSortField } from './dto/education-query.dto'
 import { SortOrder } from '../common/enums/sort-order.enum'
+import { Company } from '../company/company.schema'
 
 @Injectable()
 export class EducationService {
+  private readonly logger = new Logger(EducationService.name)
+
   constructor(
     @InjectModel(Education.name)
     private readonly educationModel: Model<EducationDocument>,
@@ -42,8 +49,21 @@ export class EducationService {
   }
 
   async findOne(id: string | ObjectId): Promise<EducationDocument> {
+    this.logger.debug(`Finding education record with id: ${id}`)
     const education = await this.educationModel.findById(id)
     if (!education) throw new NotFoundException('Education not found')
+    return education
+  }
+
+  async findOnePopulated(
+    id: string | ObjectId,
+  ): Promise<EducationPopulatedDocument> {
+    const education = await this.educationModel
+      .findById(id)
+      .populate<{ school: Company }>('school')
+
+    if (!education) throw new NotFoundException('Education record not found')
+
     return education
   }
 

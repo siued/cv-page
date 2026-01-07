@@ -21,8 +21,9 @@ import { ApiBadRequestResponse } from '../common/decorators/bad-request.decorato
 import { ApiNotFoundResponse } from '../common/decorators/not-found.decorator'
 import { ObjectIdValidationPipe } from '../common/validators/object-id.validation-pipe'
 import { EducationPaginatedResponseDto } from './dto/education-paginated-response.dto'
+import { EducationPopulatedDto } from './dto/education-populated.dto'
 
-@Controller('education')
+@Controller('educations')
 @ApiTags(ApiTag.Education)
 export class EducationController {
   constructor(private readonly educationService: EducationService) {}
@@ -61,6 +62,17 @@ export class EducationController {
   ): Promise<EducationDto> {
     const doc = await this.educationService.findOne(id)
     return EducationMapper.toDto(doc)
+  }
+
+  @Get(':id/populated')
+  @ApiOperation({ summary: 'Get education record with populated school data' })
+  @ApiBadRequestResponse()
+  @ApiNotFoundResponse()
+  async findOnePopulated(
+    @Param('id', ObjectIdValidationPipe) id: string,
+  ): Promise<EducationPopulatedDto> {
+    const result = await this.educationService.findOnePopulated(id)
+    return EducationMapper.toPopulatedDto(result)
   }
 
   @Patch(':id')
