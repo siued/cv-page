@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory, Virtual } from '@nestjs/mongoose'
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose'
 import { EducationLevel } from './entities/education.entity'
 import { dateDifferenceInMillis } from '../util/date.util'
+import { Company } from '../company/company.schema'
 
 @Schema({ timestamps: true })
 export class Education {
@@ -70,3 +71,7 @@ export class Education {
 
 export const EducationSchema = SchemaFactory.createForClass(Education)
 export type EducationDocument = HydratedDocument<Education>
+
+export type EducationPopulatedDocument = Omit<EducationDocument, 'school'> & {
+  school: Company
+}

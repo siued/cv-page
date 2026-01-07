@@ -4,13 +4,17 @@ import { Equals, IsString, ValidateBy } from 'class-validator'
 import { isValidEmail } from '../../util/string.util'
 
 export class EmailContactDto {
-  @ApiProperty({ type: String, description: 'MongoDB ObjectId' })
-  _id: string
+  @ApiProperty({
+    example: '64b64c7f8f1a2b3c4d5e6f70',
+  })
+  @IsString()
+  _id!: string
 
   @ApiProperty({ enum: [ContactType.EMAIL] })
   @Equals(ContactType.EMAIL)
-  type: ContactType.EMAIL
+  type!: ContactType.EMAIL
 
+  @ApiProperty({ example: 'example@nasa.com' })
   @IsString()
   @ValidateBy({
     name: 'isValidEmail',
@@ -19,7 +23,7 @@ export class EmailContactDto {
       defaultMessage: () => 'email must be a valid email address',
     },
   })
-  email: string
+  email!: string
 }
 
 export const EmailContactExample: EmailContactDto = {
