@@ -56,7 +56,6 @@ export class CompanyController {
   }
 
   @Get()
-  @ApiTags(ApiTag.CV)
   @ApiOperation({ summary: 'List all companies I have worked at' })
   @ApiOkResponse({ type: CompanyPaginatedResponseDto })
   @ApiBadRequestResponse()
