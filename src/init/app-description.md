@@ -2,20 +2,20 @@
 
 # Welcome!
 
-<!-- the image is added in raw HTML to allow text wrappign -->
-<img src="/assets/favicon.ico" alt="My profile picture" align="right" width="45%" style="margin-left: 5%;">
+<!-- the image is added in raw HTML to allow text wrapping -->
+<img src="/assets/favicon.ico" alt="My profile picture" align="right" width="35%" style="margin-left: 10%;">
 
 This is my personal website.  
 Instead of having an AI-generated frontend, I decided to create a clean API with my personal details and let the documentation serve as the frontend.
 
-Currently this is still WIP. I am in the process of adding more data and endpoints.
+This is a work-in-progress but it is fully functional. I am in the process of adding more endpoints and data.
 
 ## About Me
 
 <details>
 <summary>Click to expand</summary>
 
-Here will be a summary of who I am as a person. Super easy to write, just put my entire personality and all my achievemnts into 4-5 lines.
+Here will be a summary of who I am as a person. Super easy to write, just put my entire personality and all my achievements into 4-5 lines. For now, just pretend that this says how awesome I am.
 
 </details>
 
