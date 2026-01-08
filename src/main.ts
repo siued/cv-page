@@ -17,6 +17,7 @@ import { CONTACT_TAG_DESCRIPTION } from './contact/contact.controller'
 import { APP_TAG_DESCRIPTION } from './app.controller'
 import { ApiTag } from './app.types'
 import addWebhooks from './init/webhooks'
+import { EDUCATION_TAG_DESCRIPTION } from './education/education.controller'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -42,6 +43,7 @@ async function bootstrap() {
       'My CV data including work experiences, education, skills, and projects.',
     )
     .addTag(ApiTag.WE, WORK_EXPERIENCE_TAG_DESCRIPTION)
+    .addTag(ApiTag.Education, EDUCATION_TAG_DESCRIPTION)
     .addTag(ApiTag.Company, COMPANY_TAG_DESCRIPTION)
     .addTag(ApiTag.Contacts, CONTACT_TAG_DESCRIPTION)
     .addTag(ApiTag.App, APP_TAG_DESCRIPTION)
