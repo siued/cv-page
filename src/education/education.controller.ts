@@ -23,6 +23,9 @@ import { ObjectIdValidationPipe } from '../common/validators/object-id.validatio
 import { EducationPaginatedResponseDto } from './dto/education-paginated-response.dto'
 import { EducationPopulatedDto } from './dto/education-populated.dto'
 
+export const EDUCATION_TAG_DESCRIPTION =
+  'My achieved education levels. This endpoint collection allows CRUD operations on education records.'
+
 @Controller('educations')
 @ApiTags(ApiTag.Education)
 export class EducationController {
