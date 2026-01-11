@@ -10,7 +10,7 @@ import {
 import { Transform } from 'class-transformer'
 import mongoose, { isValidObjectId } from 'mongoose'
 import { ApiProperty } from '@nestjs/swagger'
-import { EducationLevel } from '../entities/education.entity'
+import { EducationLevel } from '../education.types'
 
 export class CreateEducationDto {
   @ApiProperty({ type: String, example: '65f1c2e4b7e6a2d1f8c9a123' })

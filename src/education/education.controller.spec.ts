@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { EducationController } from './education.controller'
 import { EducationService } from './education.service'
 import mongoose from 'mongoose'
-import { EducationLevel } from './entities/education.entity'
+import { EducationLevel } from './education.types'
 import { UpdateEducationDto } from './dto/update-education.dto'
 import {
   EducationQueryDto,

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory, Virtual } from '@nestjs/mongoose'
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose'
-import { EducationLevel } from './entities/education.entity'
+import { EducationLevel } from './education.types'
 import { dateDifferenceInMillis } from '../util/date.util'
 import { Company } from '../company/company.schema'
 
