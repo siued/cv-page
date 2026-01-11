@@ -24,7 +24,6 @@ export class ContactUnionValidationPipe implements PipeTransform {
   transform(value: any, _metadata: ArgumentMetadata) {
     const errors = []
     for (const DtoClass of DTO_CLASSES) {
-      console.log('Trying validation against:', DtoClass.name)
       const instance = plainToInstance(DtoClass, value)
       const validationErrors = validateSync(instance, {
         whitelist: true,
