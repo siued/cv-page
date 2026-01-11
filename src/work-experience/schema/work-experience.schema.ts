@@ -3,7 +3,7 @@ import mongoose, { HydratedDocument, ObjectId, Types } from 'mongoose'
 import { Company } from '../../company/company.schema'
 import { PositionLevel } from '../work-experience.types'
 import { Skill, SkillSchema } from './skill.schema'
-import { dateDifferenceInMillis } from '../../util/date.util'
+import { dateDifferenceInYears } from '../../util/date.util'
 
 @Schema({ timestamps: true })
 export class WorkExperience {
@@ -47,7 +47,7 @@ export class WorkExperience {
   @Virtual({
     get(this: WorkExperience): number | undefined {
       if (!this.endDate) return undefined
-      return dateDifferenceInMillis(this.startDate, this.endDate)
+      return dateDifferenceInYears(this.startDate, this.endDate)
     },
   })
   durationYears?: number

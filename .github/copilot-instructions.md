@@ -9,11 +9,11 @@
 ## Coding Guidelines
 
 - Eliminate duplication: share logic via mappers/utilities or base DTOs (e.g., `WorkExperienceBaseDto`). Prefer extracting helpers to `common/` when used by multiple modules.
-- NEVER introduce `any`, `unknown`, or unchecked casts. Lean on narrow interfaces, enums, and DTO classes for data flow.
+- YOU ARE UNDER NO CIRCUMSTANCES ALLOWED to introduce `any`, `unknown`, or unchecked casts. Lean on narrow interfaces, enums, and DTO classes for data flow.
 - NEVER use `@ts-ignore`, `@ts-expect-error` or other error silencing techniques.
 - Keep files ASCII-only and add comments only where logic is non-obvious.
 - Follow Nest conventions: defensive service methods, DTO validation decorators, and mapper utilities converting Mongoose docs to DTOs.
-- Preserve existing eslint/prettier style (single quotes, trailing commas where configured).
+- Preserve existing eslint/prettier style (single quotes, trailing commas where configured, no semicolons).
 
 ## Typing Patterns
 
@@ -44,3 +44,4 @@
 - Prefer pure functions in `util/` for shared logic, and unit-test them (see `util/string.util.spec.ts`).
 - Update or add tests alongside feature work when behavior changes, using the existing spec layout.
 - Husky hooks should use the new `husky` command wrapper; avoid the deprecated `#!/bin/sh` + `. "$(dirname "$0")/_/husky.sh"` shim when adding hooks.
+- NEVER USE `any`, `unknown`, etc TYPES UNDER ANY CIRCUMSTANCES.

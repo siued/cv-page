@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { EducationService } from './education.service'
 import { getModelToken } from '@nestjs/mongoose'
 import mongoose from 'mongoose'
-import { EducationLevel } from './entities/education.entity'
+import { EducationLevel } from './education.types'
 
 describe('EducationService', () => {
   let service: EducationService

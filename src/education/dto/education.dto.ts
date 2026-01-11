@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { EducationLevel } from '../entities/education.entity'
+import { EducationLevel } from '../education.types'
 import {
   IsArray,
   IsDate,

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory, Virtual } from '@nestjs/mongoose'
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose'
-import { EducationLevel } from './entities/education.entity'
-import { dateDifferenceInMillis } from '../util/date.util'
+import { EducationLevel } from './education.types'
+import { dateDifferenceInYears } from '../util/date.util'
 import { Company } from '../company/company.schema'
 
 @Schema({ timestamps: true })
@@ -47,7 +47,7 @@ export class Education {
   @Virtual({
     get(this: Education): number | undefined {
       if (!this.endDate) return undefined
-      return dateDifferenceInMillis(this.startDate, this.endDate)
+      return dateDifferenceInYears(this.startDate, this.endDate)
     },
   })
   durationYears?: number
