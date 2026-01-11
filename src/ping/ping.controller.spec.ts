@@ -57,6 +57,8 @@ describe('PingController (validation & routing)', () => {
       .post(baseRoute)
       .send({ callbackUrl: 'not-a-url' })
       .expect(400)
+    jest.runAllTimers()
+    await Promise.resolve()
     expect(global.fetch).not.toHaveBeenCalled()
   })
 
