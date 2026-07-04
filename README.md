@@ -20,7 +20,7 @@ The image URL is
 
 GAR is paid if combined size of all artifacts exceeds 500Mb. It is set to only keep 1 most recent image to avoid fees. 
 
-### Service account
+### Service account 
 
 To push to Cloud Run using Github Actions, I needed a service account with sufficient permissions. These are:
 
