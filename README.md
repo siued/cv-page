@@ -5,7 +5,7 @@ Instead of having an AI-generated frontend, I decided to create a clean API with
 
 To see a full description of the app, see [app-description.md](/src/init/app-description.md).
 
-## Deployment
+## Deployment 
 
 ### Build
 
