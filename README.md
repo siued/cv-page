@@ -18,7 +18,7 @@ Google Cloud Run doesn't allow using container images that are not hosted in Goo
 The image URL is  
 `<region>-docker.pkg.dev/<project-id>/ghcr/<github-username>/<image-name>:<tag>`. Note that `ghcr` is the name of the created GAR registry which points to `ghcr.io`.
 
-GAR is paid if combined size of all artifacts exceeds 500Mb. It is set to only keep 1 most recent image to avoid fees.
+GAR is paid if combined size of all artifacts exceeds 500Mb. It is set to only keep 1 most recent image to avoid fees. 
 
 ### Service account
 
