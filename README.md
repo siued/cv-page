@@ -29,7 +29,7 @@ To push to Cloud Run using Github Actions, I needed a service account with suffi
 
 The service account authenticates in GitHub actios using a JSON credentials file.
 
-### Cloud Run deployment
+### Cloud Run deployment 
 
 The main branch is deployed as soon as the CI and build pipelines finish.
 
